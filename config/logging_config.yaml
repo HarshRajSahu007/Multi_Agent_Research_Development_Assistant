@@ -1,0 +1,97 @@
+# Logging configuration for Multi-Agent Research Assistant
+
+version: 1
+disable_existing_loggers: false
+
+formatters:
+  standard:
+    format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    datefmt: '%Y-%m-%d %H:%M:%S'
+  detailed:
+    format: '%(asctime)s - %(name)s - %(levelname)s - %(pathname)s:%(lineno)d - %(message)s'
+    datefmt: '%Y-%m-%d %H:%M:%S'
+  json:
+    class: pythonjsonlogger.jsonlogger.JsonFormatter
+    format: '%(asctime)s %(name)s %(levelname)s %(pathname)s %(lineno)d %(message)s'
+    datefmt: '%Y-%m-%d %H:%M:%S'
+
+handlers:
+  console:
+    class: logging.StreamHandler
+    level: INFO
+    formatter: standard
+    stream: ext://sys.stdout
+
+  file:
+    class: logging.handlers.RotatingFileHandler
+    level: DEBUG
+    formatter: detailed
+    filename: logs/app.log
+    maxBytes: 10485760  # 10MB
+    backupCount: 10
+    encoding: utf8
+
+  error_file:
+    class: logging.handlers.RotatingFileHandler
+    level: ERROR
+    formatter: detailed
+    filename: logs/error.log
+    maxBytes: 10485760  # 10MB
+    backupCount: 10
+    encoding: utf8
+
+  json_file:
+    class: logging.handlers.RotatingFileHandler
+    level: INFO
+    formatter: json
+    filename: logs/app.json
+    maxBytes: 10485760  # 10MB
+    backupCount: 5
+    encoding: utf8
+
+loggers:
+  '':  # Root logger
+    level: DEBUG
+    handlers: [console, file, error_file]
+    propagate: true
+
+  document_analysis:
+    level: DEBUG
+    handlers: [console, file]
+    propagate: false
+
+  rag_system:
+    level: DEBUG
+    handlers: [console, file, json_file]
+    propagate: false
+
+  agent_ecosystem:
+    level: DEBUG
+    handlers: [console, file]
+    propagate: false
+
+  visual_system:
+    level: DEBUG
+    handlers: [console, file]
+    propagate: false
+
+  ui:
+    level: INFO
+    handlers: [console, file]
+    propagate: false
+
+  # Third-party libraries - reduce their verbosity
+  urllib3:
+    level: WARNING
+    handlers: [console]
+    propagate: false
+
+  matplotlib:
+    level: WARNING
+    handlers: [console]
+    propagate: false
+
+  PIL:
+    level: WARNING
+    handlers: [console]
+    propagate: false

@@ -1,0 +1,1 @@
+"""Agent ecosystem for coordinated research assistance."""

@@ -1,168 +1,32 @@
-# Main configuration file for Multi-Agent Research Assistant
-
-# System settings
 system:
   name: "Multi-Agent Research Assistant"
-  version: "0.1.0"
-  debug_mode: true
-  log_level: "INFO"  # Options: DEBUG, INFO, WARNING, ERROR, CRITICAL
-  data_directory: "./data"
-  output_directory: "./output"
-  temp_directory: "./temp"
-  max_threads: 4
-  cache_enabled: true
-  cache_directory: "./cache"
+  version: "1.0.0"
+  log_level: "INFO"
 
-# Document analysis settings
-document_analysis:
-  supported_formats:
-    - "pdf"
-    - "docx"
-    - "txt"
-    - "html"
-    - "tex"
-  pdf_extraction:
-    use_ocr: true
-    ocr_engine: "pytesseract"
-    extract_images: true
-    extract_tables: true
-    extract_equations: true
-  image_processing:
-    min_figure_size: 100  # Minimum size in pixels
-    confidence_threshold: 0.7
-    max_figures_per_page: 10
-  ocr:
-    language: "eng"
-    psm_mode: 6  # Page segmentation mode
-    oem_mode: 3  # OCR Engine mode
-  equation_parsing:
-    enable_latex_conversion: true
-    confidence_threshold: 0.6
-    use_mathpix: false  # Optional paid API for better math OCR
+models:
+  embedding_model: "sentence-transformers/all-MiniLM-L6-v2"
+  vision_model: "microsoft/DiT-base-patch16-224"
+  ocr_model: "easyocr"
+  llm_model: "gpt-3.5-turbo"
 
-# RAG system settings
-rag_system:
-  vector_db:
-    provider: "chroma"  # Options: chroma, faiss, pinecone
-    embedding_model: "sentence-transformers/all-MiniLM-L6-v2"
-    collection_name: "research_documents"
-    dimension: 384
-    metric: "cosine"
-    persist_directory: "./data/vectordb"
-  retrieval:
-    top_k: 5
-    similarity_threshold: 0.75
-    reranking_enabled: true
-    hybrid_search: true  # Combine sparse and dense retrieval
-  knowledge_bases:
-    paper_db:
-      enabled: true
-      collection: "papers"
-      chunk_size: 512
-      chunk_overlap: 50
-    code_db:
-      enabled: true
-      collection: "code"
-      chunk_size: 256
-      chunk_overlap: 16
-    experiment_db:
-      enabled: true
-      collection: "experiments"
-      chunk_size: 1024
-      chunk_overlap: 128
+databases:
+  vector_store:
+    type: "chroma"
+    persist_directory: "./data/embeddings"
+  knowledge_graph:
+    type: "networkx"
+    persist_directory: "./data/knowledge_graphs"
 
-# Agent ecosystem settings
-agent_ecosystem:
-  orchestrator:
-    max_iterations: 10
-    timeout_seconds: 300
-    parallel_execution: true
-    memory_enabled: true
-  llm:
-    provider: "openai"  # Options: openai, anthropic, huggingface, local
-    model: "gpt-4"
+agents:
+  research_agent:
+    max_iterations: 5
+    temperature: 0.3
+  implementation_agent:
+    max_iterations: 3
+    temperature: 0.1
+  experiment_agent:
+    max_iterations: 4
+    temperature: 0.5
+  critique_agent:
+    max_iterations: 3
     temperature: 0.2
-    max_tokens: 4096
-    top_p: 0.95
-    streaming: true
-  agents:
-    research_agent:
-      enabled: true
-      tools:
-        - "search_papers"
-        - "extract_insights"
-        - "connect_papers"
-    implementation_agent:
-      enabled: true
-      tools:
-        - "code_generation"
-        - "code_review"
-        - "algorithm_selection"
-    experiment_agent:
-      enabled: true
-      tools:
-        - "design_experiment"
-        - "analyze_results"
-        - "suggest_improvements"
-    critique_agent:
-      enabled: true
-      tools:
-        - "evaluate_claims"
-        - "identify_weaknesses"
-        - "suggest_alternatives"
-  memory:
-    type: "vector"  # Options: vector, graph, hierarchical
-    ttl_seconds: 86400  # 24 hours
-    max_size: 1000
-
-# Visual understanding system
-visual_system:
-  vision_models:
-    object_detection:
-      model: "fasterrcnn_resnet50_fpn"
-      confidence_threshold: 0.7
-    diagram_recognition:
-      model: "diagram_classifier_v1"
-      enabled: true
-    chart_extractor:
-      enabled: true
-      supported_types:
-        - "bar_chart"
-        - "line_chart"
-        - "scatter_plot"
-        - "pie_chart"
-  visualization_generator:
-    default_style: "academic"
-    default_format: "svg"
-    color_palette: "viridis"
-    font: "Arial"
-
-# UI settings
-ui:
-  interface: "streamlit"  # Options: streamlit, gradio, flask
-  theme: "light"  # Options: light, dark
-  upload_limit_mb: 50
-  max_history_items: 20
-  features:
-    paper_upload: true
-    query_interface: true
-    code_view: true
-    experiment_designer: true
-    visualization_view: true
-  api:
-    enabled: true
-    port: 8000
-    allow_cors: true
-    require_auth: false
-
-# API keys and external services
-services:
-  openai:
-    api_key: "${OPENAI_API_KEY}"  # Use environment variable
-  huggingface:
-    api_key: "${HF_API_KEY}"  # Use environment variable
-  pinecone:
-    api_key: "${PINECONE_API_KEY}"  # Use environment variable
-    environment: "us-west1-gcp"
-  semantic_scholar:
-    api_key: "${SEMANTIC_SCHOLAR_API_KEY}"  # Optional academic paper API

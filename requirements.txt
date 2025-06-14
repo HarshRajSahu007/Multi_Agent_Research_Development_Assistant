@@ -1,72 +1,31 @@
-# Core dependencies
-numpy>=1.22.0
-scipy>=1.8.0
-pandas>=1.4.0
-matplotlib>=3.5.0
-seaborn>=0.11.2
 
-# Document processing
-pypdf>=3.7.0
-python-docx>=0.8.11
-PyMuPDF>=1.20.0  # For advanced PDF processing
-pytesseract>=0.3.9  # For OCR
-pdfminer.six>=20211012  # For PDF text extraction
-
-# Computer Vision
-opencv-python>=4.6.0
-Pillow>=9.0.0
-torchvision>=0.13.0
-albumentations>=1.1.0  # For image augmentation
-scikit-image>=0.19.2  # For image processing
-
-# Deep Learning
-torch>=1.12.0
-transformers>=4.18.0
-timm>=0.6.0  # For computer vision models
-accelerate>=0.12.0  # For running larger models efficiently
-
-# NLP & LLM integration
-langchain>=0.0.267
-langchain_community>=0.0.9
-langchain_core>=0.1.0
-langsmith>=0.0.65
-sentence-transformers>=2.2.2  # For embeddings
-openai>=0.27.0  # For API access to GPT models
-huggingface_hub>=0.12.0
-tokenizers>=0.13.0
-
-# RAG and Vector Storage
-chromadb>=0.4.6  # Vector database
-faiss-cpu>=1.7.3  # Vector similarity search
-hnswlib>=0.6.2  # Hierarchical navigable small world for vector search
-pinecone-client>=2.2.1  # Optional: For Pinecone vector DB
-
-# LangGraph for agent orchestration
-langgraph>=0.0.15
-
-# Web Interface
-flask>=2.2.0
-streamlit>=1.19.0  # For interactive UI
-gradio>=3.16.0  # Alternative UI option
-
-# Utilities
-tqdm>=4.64.0  # Progress bars
-pytest>=7.1.0  # For testing
-python-dotenv>=0.20.0  # For environment variables
-pyyaml>=6.0  # For configuration files
-jsonschema>=4.16.0  # For schema validation
-rich>=12.5.0  # For rich terminal output
-loguru>=0.6.0  # Better logging
-
-# Optional: for charting and visualization
-plotly>=5.6.0
-bokeh>=2.4.3
-altair>=4.2.0
-
-# Optional: for math formula parsing
-sympy>=1.10.1
-latex2mathml>=3.75.0
-
-# Optional: for advanced NLP tasks
-spacy>=3.4.0
-nltk>=3.7
+# requirements.txt
+langchain==0.1.0
+langgraph==0.0.20
+langchain-openai==0.0.5
+langchain-community==0.0.10
+transformers==4.36.0
+torch==2.1.0
+torchvision==0.16.0
+sentence-transformers==2.2.2
+chromadb==0.4.18
+pymupdf==1.23.8
+pillow==10.1.0
+opencv-python==4.8.1.78
+easyocr==1.7.0
+plotly==5.17.0
+streamlit==1.28.1
+pandas==2.1.3
+numpy==1.24.3
+scikit-learn==1.3.2
+faiss-cpu==1.7.4
+python-dotenv==1.0.0
+requests==2.31.0
+beautifulsoup4==4.12.2
+arxiv==1.4.8
+matplotlib==3.8.2
+seaborn==0.13.0
+networkx==3.2.1
+pydantic==2.5.0
+typing-extensions==4.8.0
+asyncio==3.4.3

@@ -3,7 +3,6 @@ import logging.config
 import yaml
 from pathlib import Path
 
-
 def setup_logger(name: str) -> logging.Logger:
     """Set up logger with configuration."""
     
